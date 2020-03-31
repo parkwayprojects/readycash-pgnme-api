@@ -12,7 +12,7 @@ const merge = (transList, incomeList) => {
 
     incomeList.forEach( income => {
       if(newTranList[income.id] && (newTranList[income.id].approvalnumber === income.approvalnumber)) {
-        newTranList[income.id].income = income.AMOUNT
+        newTranList[income.id].commision = income.AMOUNT
       }
     })
 

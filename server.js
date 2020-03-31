@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 
 
-app.use('/api/transaction', transactionRouter)
+app.use('/api/transactions', transactionRouter)
 
 
 const start = () => {
