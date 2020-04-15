@@ -8,8 +8,19 @@ const oneAgent = (req, res, next) => {
     res.end()
   }else {
     next()
+  } 
+}
+
+
+const validateDate = (req, res, next) => {
+  const regEx = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gm;
+  const date = req.params.date;
+  if(!date || !date.match(regEx)){
+    res.status(404).json({message: 'Invalid date format use yyyy-mm-dd'})
+    res.end()
+  }else {
+    next()
   }
-  
 }
 
 
@@ -39,5 +50,6 @@ const getAccountAndIncomeIds = async (req, res, next) => {
 
 module.exports = {
   oneAgent,
-  getAccountAndIncomeIds
+  getAccountAndIncomeIds,
+  validateDate
 }

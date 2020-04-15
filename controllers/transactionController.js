@@ -1,6 +1,6 @@
 const query =  require('../utils/db');
 const { merge } = require('../utils/helpers');
-const {accountTransactionListQuery, incomeAccountQuery} = require('../utils/dbQueries')
+const {accountTransactionListQuery, incomeAccountQuery, defaultAccountTransactionListQuery, defaultTncomeAccountQuery} = require('../utils/dbQueries')
 
 
 
@@ -13,11 +13,16 @@ const fromInseption = async (req, res) => {
   res.send(merge(mainTranList,incomeList));
 }
 
-const daily = async (req, res) => {
-  
+const byDate = async (req, res) => {
+  const { mainAccId, incomeAccId, date } = req.params
+  const mainTransPromise =  query(defaultAccountTransactionListQuery(mainAccId,'=', date))
+  const incomeListPromise =  query(defaultTncomeAccountQuery(incomeAccId, '=', date))
+  const [mainTranList, incomeList] = await Promise.all([mainTransPromise, incomeListPromise])
+  res.send(merge(mainTranList, incomeList))
 }
 
 
 module.exports = {
-  fromInseption
+  fromInseption,
+  byDate
 }
