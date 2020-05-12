@@ -24,7 +24,7 @@ when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name)
-when '200.00.000' then  tl.narration end as `DESC`,
+when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   tl.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate <'${today()}' and te.account in (${accountId})
@@ -46,7 +46,7 @@ when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name)
-when '200.00.000' then  tl.narration end as `DESC`,
+when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   tl.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate ${sign}'${date}' and te.account in (${accountId})
@@ -68,7 +68,7 @@ when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name)
-when '200.00.000' then  tl.narration end as `DESC`,
+when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   te.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate<'${today()}' and te.account in (${incomeAccountId})
@@ -90,7 +90,7 @@ when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name)
-when '200.00.000' then  tl.narration end as `DESC`,
+when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   te.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate${sign}'${date}' and te.account in (${incomeAccountId})
