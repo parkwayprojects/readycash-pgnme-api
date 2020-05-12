@@ -23,12 +23,12 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IFNULL('Airtime transfer',Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name))
+when '100.00.013' then   IFNULL('Telco: NA',Concat('Telco:',' ',ca_name))
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   tl.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate <'${today()}' and te.account in (${accountId})
-  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000') order by tl.transmissionDate asc`;
+  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000','100.00.013') group by stan,capturedate order by tl.transmissionDate asc`;
 }
 
 function defaultAccountTransactionListQuery(accountId, sign, date) {
@@ -45,12 +45,12 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IFNULL('Airtime transfer',Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name))
+when '100.00.013' then   IFNULL('Telco: NA',Concat('Telco:',' ',ca_name))
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   tl.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate ${sign}'${date}' and te.account in (${accountId})
-  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000')  order by tl.transmissionDate asc`;
+  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000','100.00.013') group by stan,capturedate   order by tl.transmissionDate asc`;
 }
 
 function incomeAccountQuery(incomeAccountId) {
@@ -67,12 +67,12 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IFNULL('Airtime transfer',Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name))
+when '100.00.013' then   IFNULL('Telco: NA',Concat('Telco:',' ',ca_name))
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   te.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate<'${today()}' and te.account in (${incomeAccountId})
-  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000')  order by tl.transmissionDate asc`
+  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000','100.00.013') group by stan,capturedate  order by tl.transmissionDate asc`
 }
 
 function defaultTncomeAccountQuery(incomeAccountId, sign, date) {
@@ -89,12 +89,12 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then  IFNULL('Airtime transfer',Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name))
+when '100.00.013' then   IFNULL('Telco: NA',Concat('Telco:',' ',ca_name))
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
   te.amount AS AMOUNT, SUBSTRING_INDEX(tl.returnedbalances,',',-1) as BALANCE ,tl.id,approvalnumber from tranlog tl inner join transentry te on tl.gltransaction = te.transaction where  tl.irc='0000' and tl.reversalCount=0 and tl.captureDate${sign}'${date}' and te.account in (${incomeAccountId})
-  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000')  order by tl.transmissionDate asc`
+  and te.layer = 566 and  tl.itc in ('200.21.0000','220.00.4000','200.21.0001','220.00.010.0000','220.00.012.0000','200.00.000','220.00.013.0000','100.00.013') group by stan,capturedate   order by tl.transmissionDate asc`
 }
 
 function agentInfoQuery(agentId) {
