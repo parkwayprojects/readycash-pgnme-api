@@ -23,7 +23,7 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name),'Airtime transfer')
+when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'Airtime transfer')
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
@@ -45,7 +45,7 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name),'Airtime transfer')
+when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'Airtime transfer')
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
@@ -67,7 +67,7 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then   IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name),'Airtime transfer')
+when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'Airtime transfer')
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
@@ -89,7 +89,7 @@ when '220.00.4000' then 'CASHOUT_WITH_VOUCHER'
 when '200.21.0001' then tl.narration
 when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
 when '220.00.012.0000' then tl.narration
-when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone ,' ', ca_name),'Airtime transfer')
+when '220.00.013.0000' then IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'Airtime transfer')
 when '200.00.000' then  tl.narration end as DESCR,
   case te.subclass when 'C' then 'CREDIT'
   when 'D' then 'DEBIT' end as IMPACT,
