@@ -22,6 +22,7 @@ const byDate = async (req, res) => {
 }
 
 
+
 module.exports = {
   fromInseption,
   byDate

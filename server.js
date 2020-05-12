@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan')
 const transactionRouter = require('./routers/transactionRouter')
+const agnetRouter = require('./routers/agentRouter')
 require('dotenv').config({ path: 'variables.env'})
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 
 app.use('/api/transactions', transactionRouter)
+app.use('/api/agents', agnetRouter)
 
 
 const start = () => {

@@ -73,6 +73,10 @@ function defaultTncomeAccountQuery(incomeAccountId, sign, date) {
   and te.layer = 566 and  tl.itc not in ('200.22.0002','420.21.000.0000','200.22.0000') order by tl.transmissionDate asc`
 }
 
+function agentInfoQuery(agentId) {
+  return `select fullName,businessname, email,addressState as state,addressCoordiates as 'geo_location',address  from agent where realid in (${agentId})`
+}
+
 
 module.exports = {
   accountIdQuery,
@@ -80,5 +84,6 @@ module.exports = {
   accountTransactionListQuery,
   incomeAccountQuery,
   defaultAccountTransactionListQuery,
-  defaultTncomeAccountQuery
+  defaultTncomeAccountQuery,
+  agentInfoQuery
 }
