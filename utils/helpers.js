@@ -1,40 +1,48 @@
 const today = () => {
   const today = new Date();
-  const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   return date;
-}
+};
 
 const merge = (transList, incomeList) => {
-    const newTranList = {}
-    transList.forEach( transaction => {
-      newTranList[transaction.id] = transaction
-    })
+  const newTranList = {};
+  transList.forEach((transaction) => {
+    newTranList[transaction.id] = transaction;
+  });
 
-    incomeList.forEach( income => {
-      if(newTranList[income.id] && (newTranList[income.id].approvalnumber === income.approvalnumber)) {
-        newTranList[income.id].commision = income.AMOUNT
+  incomeList.forEach((income) => {
+    if (
+      newTranList[income.id] &&
+      newTranList[income.id].approvalnumber === income.approvalnumber
+    ) {
+      newTranList[income.id].commision = income.AMOUNT;
+    }
+  });
+
+  return Object.values(newTranList).map((transaction) => {
+    if (transaction["SERVICE_TYPE"] === "BANK_TRANSFER") {
+      if (transaction["DESCR"].includes("{")) {
+        const [type, desc] = transaction["DESCR"].split("transfer:");
+        const newDesc = JSON.parse(desc.trim()).bank;
+        transaction["DESCR"] = `Bank Tranfer : ${newDesc}`;
       }
-    })
-
-    return Object.values(newTranList).map( transaction => {
-      delete transaction.id;
-      delete transaction.approvalnumber;
-      return slimObj(transaction);
-    })
-    
-}
+    }
+    delete transaction.id;
+    delete transaction.approvalnumber;
+    return slimObj(transaction);
+  });
+};
 
 const slimObj = (obj) => {
-  let newObj = {}
-  for(let [key, value] of Object.entries(obj)){
-     newObj[key.toLowerCase()] = value;
+  let newObj = {};
+  for (let [key, value] of Object.entries(obj)) {
+    newObj[key.toLowerCase()] = value;
   }
-  return newObj
-}
-
-
+  return newObj;
+};
 
 module.exports = {
   today,
-  merge
-}
+  merge,
+};
