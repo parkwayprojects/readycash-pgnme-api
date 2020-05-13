@@ -26,6 +26,9 @@ const merge = (transList, incomeList) => {
         const [type, desc] = transaction["description"].split("transfer:");
         const newDesc = JSON.parse(desc.trim()).bank;
         transaction["description"] = `Bank Name : ${newDesc}`;
+      }else {
+        const [type, desc] = transaction["description"].split("transfer:");
+        transaction['description'] = `Bank Transfer to : ${desc}`
       }
     }
     delete transaction.id;
