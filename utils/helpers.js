@@ -22,8 +22,8 @@ const merge = (transList, incomeList) => {
 
   return Object.values(newTranList).map((transaction) => {
     if (transaction["SERVICE_TYPE"] === "BANK_TRANSFER") {
-      if (transaction["DESCR"].includes("{")) {
-        const [type, desc] = transaction["DESCR"].split("transfer:");
+      if (transaction["description"].includes("{")) {
+        const [type, desc] = transaction["description"].split("transfer:");
         const newDesc = JSON.parse(desc.trim()).bank;
         transaction["description"] = `Bank Name : ${newDesc}`;
       }
