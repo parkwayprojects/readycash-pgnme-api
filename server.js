@@ -11,7 +11,6 @@ const {catchAsync } = require('./handlers/errorHandler')
 const errors = require('./handlers/errorHandler')
 require('dotenv').config({ path: 'variables.env'})
 
-const query = require('./utils/usersdb')
 
 const app = express();
 
@@ -36,7 +35,7 @@ app.use('/api/agents', agnetRouter)
 
 app.all('*', errors.notFound)
 
-app.use(errors.productionErrors)
+app.use(errors.devErrors)
 
 
 const start = () => {
