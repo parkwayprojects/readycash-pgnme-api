@@ -67,6 +67,7 @@ module.exports.productionErrors = (err, req, res, next) => {
     res.json({
       message: 'email must be unique'
     })
+    return
   }
 
   if (err.name === 'TokenExpiredError') {
