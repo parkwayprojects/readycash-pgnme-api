@@ -101,6 +101,18 @@ function agentInfoQuery(agentId) {
   return `select fullName,businessname, email,addressState as state,addressCoordiates as 'geo_location',address  from agent where realid in (${agentId})`
 }
 
+function registerUser({firstname, lastname, company, email, password }) {
+  return `INSERT INTO users (firstname, lastname, company, email, password) VALUES ('${firstname}', '${lastname}', '${company}', '${email}', '${password}')`
+}
+
+function loginUser(email) {
+  return `SELECT * FROM users WHERE email='${email}'`
+}
+
+function findUserById(id) {
+  return `SELECT * FROM users WHERE id='${id}'`
+}
+
 
 module.exports = {
   accountIdQuery,
@@ -109,5 +121,9 @@ module.exports = {
   incomeAccountQuery,
   defaultAccountTransactionListQuery,
   defaultTncomeAccountQuery,
-  agentInfoQuery
+  agentInfoQuery,
+  registerUser,
+  loginUser,
+  findUserById
+
 }
