@@ -24,6 +24,29 @@ const registerValidation =  (req, res, next) => {
     });
 }
 
+
+const loginValidation =  (req, res, next) => {
+  const validationRule = {
+      "email": "required|email",
+      "password": "required|string"
+  }
+  validator(req.body, validationRule, {}, async (err, status) => {
+      if (!status) {
+          res.status(422)
+              .send({
+                  success: false,
+                  message: 'Validation failed',
+                  data: err
+              });
+      } else {
+          next();
+      }
+  });
+}
+
+
+
 module.exports = { 
-  registerValidation
+  registerValidation,
+  loginValidation
 }
