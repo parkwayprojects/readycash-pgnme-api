@@ -33,14 +33,15 @@ module.exports.protect = async (req, res, next) => {
 
   const user = await query(findUserById(payload.id))
 
-  console.log(user)
+  
 
   if (!user.length) {
     return next(new ApiError('The token belonging to the user no loger exist'))
   }
 
   const activeUser = [user]
-
+  console.log(activeUser)
+  console.log(activeUser.status)
   if(!activeUser.status) {
     return next(new ApiError('Account not activated. Contact Support', 401))
   }
