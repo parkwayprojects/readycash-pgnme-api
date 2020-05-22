@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan')
+const fs =  require('fs')
 const transactionRouter = require('./routers/transactionRouter')
 const agnetRouter = require('./routers/agentRouter')
 const {register, login} = require('./controllers/userController')
@@ -16,8 +17,11 @@ const app = express();
 
 app.disable('x-powered-by');
 
+const accessLogStream = fs.createWriteStream(__dirname + '/access.log',{flags: 'a'});
+//app.use(morgan('common', { skip: function(req, res) { return res.statusCode < 400 }, stream: accessLogStream }));
+
 app.use(cors());
-app.use(morgan('combined'))
+app.use(morgan('common', {stream: accessLogStream}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 
