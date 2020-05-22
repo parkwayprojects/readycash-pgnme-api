@@ -39,7 +39,7 @@ module.exports.protect = async (req, res, next) => {
     return next(new ApiError('The token belonging to the user no loger exist'))
   }
 
-  const activeUser = [user]
+  const [activeUser] = user
   console.log(activeUser)
   console.log(activeUser.status)
   if(!activeUser.status) {
