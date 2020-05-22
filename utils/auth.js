@@ -40,8 +40,7 @@ module.exports.protect = async (req, res, next) => {
   }
 
   const [activeUser] = user
-  console.log(activeUser)
-  console.log(activeUser.status)
+
   if(!activeUser.status) {
     return next(new ApiError('Account not activated. Contact Support', 401))
   }
