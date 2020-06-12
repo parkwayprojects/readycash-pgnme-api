@@ -89,7 +89,7 @@ const sanefCtrl = (req, res) => {
 
     gpg.encrypt(message, args, function (err, encrypted) {
 
-      console.log(encrypted)
+      console.log("Encrypted Value",encrypted.toString())
 
      let encMessage = encrypted.toString();
 
@@ -101,7 +101,7 @@ const sanefCtrl = (req, res) => {
           { header: { 'ClientID': "018" } }
         )
         .then((data) => res.send(data))
-        .catch((error) => res.send(error))
+        .catch((error) => console.log(error))
     });
   });
 };
