@@ -100,8 +100,8 @@ const sanefCtrl = (req, res) => {
           { data: encMessage },
           { header: { 'ClientID': "018" } }
         )
+        .then((data) => res.send(data))
         .catch((error) => res.send(error))
-        .then((data) => res.send(data));
     });
   });
 };
