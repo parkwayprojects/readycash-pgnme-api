@@ -98,7 +98,7 @@ const sanefCtrl = (req, res) => {
         .post(
           "http://35.231.60.190/sanef_api_thirdparty/api/v1/accounts/createAccount",
           { data: encMessage },
-          { header: { 'ClientID': "018" } }
+          { headers: { 'ClientID': "018" } }
         )
         .then((data) => res.send(data))
         .catch((error) => console.log(error))
