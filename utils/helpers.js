@@ -1,3 +1,7 @@
+const gpg = require("gpg");
+const axios = require("axios");
+const path = require("path");
+
 const today = () => {
   const today = new Date();
   const date =
@@ -26,9 +30,9 @@ const merge = (transList, incomeList) => {
         const [type, desc] = transaction["description"].split("transfer:");
         const newDesc = JSON.parse(desc.trim()).bank;
         transaction["description"] = `Bank Name : ${newDesc}`;
-      }else {
+      } else {
         const [type, desc] = transaction["description"].split("transfer:");
-        transaction['description'] = `Bank Transfer to : ${desc}`
+        transaction["description"] = `Bank Transfer to : ${desc}`;
       }
     }
     delete transaction.id;
@@ -45,7 +49,64 @@ const slimObj = (obj) => {
   return newObj;
 };
 
+const sanefCtrl = (req, res) => {
+  gpg.importKeyFromFile(path.join(__dirname, "0x8DC5CB66-pub.asc"), function (
+    err,
+    result,
+    fingerprint
+  ) {
+    const msg = {
+      superagentCode: "018",
+      agentCode: "100006",
+      bankCode: "0002",
+      requestId: "000001201910240846150999883774",
+      bankVerificationNumber: "22123456789",
+      firstName: "Sammy",
+      middleName: "Joe",
+      lastName: "Smile",
+      gender: "Male",
+      dateOfBirth: "1978-Oct-20",
+      houseNumber: "10B",
+      streetName: "Almond street",
+      city: "Igando",
+      lgaCode: "502",
+      emailAddress: "abk@gmail.com",
+      phoneNumber: "08032345678",
+      accountOpeningBalance: 1000,
+    };
+    const message = JSON.stringify(msg);
+
+    var args = [
+      "--default-key",
+      fingerprint,
+      "--recipient",
+      fingerprint,
+      "--armor",
+      "--trust-model",
+      "always",
+    ];
+
+    let encMessage;
+
+    gpg.encrypt(message, args, function (err, encrypted) {
+      encMessage = encrypted.toString();
+
+      console.log(encMessage)
+
+      axios
+        .post(
+          "http://35.231.60.190/sanef_api_thirdparty/api/v1/accounts/createAccount",
+          { data: encMessage },
+          { header: { 'ClientID': "018" } }
+        )
+        .catch((error) => res.send(error))
+        .then((data) => res.send(data));
+    });
+  });
+};
+
 module.exports = {
   today,
   merge,
+  sanefCtrl,
 };

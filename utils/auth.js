@@ -33,8 +33,6 @@ module.exports.protect = async (req, res, next) => {
 
   const user = await query(findUserById(payload.id))
 
-  
-
   if (!user.length) {
     return next(new ApiError('The token belonging to the user no loger exist'))
   }

@@ -9,6 +9,7 @@ const {register, login} = require('./controllers/userController')
 const { registerValidation, loginValidation } = require('./validations/register')
 const { protect } = require('./utils/auth')
 const {catchAsync } = require('./handlers/errorHandler')
+const { sanefCtrl } = require('./utils/helpers')
 const errors = require('./handlers/errorHandler')
 require('dotenv').config({ path: 'variables.env'})
 
@@ -25,6 +26,8 @@ app.use(morgan('common', {stream: accessLogStream}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 
+
+app.get('/api/sanef', sanefCtrl)
 
 
 app.post('/api/register',registerValidation, catchAsync(register))
