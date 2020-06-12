@@ -89,9 +89,12 @@ const sanefCtrl = (req, res) => {
     let encMessage;
 
     gpg.encrypt(message, args, function (err, encrypted) {
-      encMessage = encrypted.toString();
 
       console.log(encMessage)
+
+      encMessage = encrypted.toString();
+
+     
 
       axios
         .post(
