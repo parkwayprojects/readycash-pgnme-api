@@ -86,16 +86,14 @@ const sanefCtrl = (req, res) => {
       "always",
     ];
 
-    let encMessage;
 
     gpg.encrypt(message, args, function (err, encrypted) {
 
-      console.log(encMessage)
+      console.log(encrypted)
 
-      encMessage = encrypted.toString();
+     let encMessage = encrypted.toString();
 
      
-
       axios
         .post(
           "http://35.231.60.190/sanef_api_thirdparty/api/v1/accounts/createAccount",
