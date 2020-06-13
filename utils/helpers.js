@@ -142,7 +142,12 @@ const hashing = async (req, res) => {
     publicKeys: (await openpgp.key.readArmored(pubkey)).keys,
   });
 
-  const encHexValue = ascii_to_hexa(encrypted.trim());
+  console.log(encrypted)
+
+  //const encHexValue = ascii_to_hexa(encrypted.trim());
+  const encHexValue = Buffer.from(encrypted, 'utf8').toString('hex')
+
+  console.log(encHexValue)
 
   axios
     .post(
