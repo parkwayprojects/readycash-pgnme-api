@@ -69,7 +69,7 @@ const sanefCtrl = async (req, res) => {
 
   axios
     .post(
-      SANEF_URL,
+      process.env.SANEF_URL,
       { data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
