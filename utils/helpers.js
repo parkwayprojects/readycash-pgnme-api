@@ -73,9 +73,9 @@ const sanefCtrl = async (req, res) => {
       { data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
-    .then( async (data) => {
-      console.log('this happend', data)
-      const resposneToAscii = Buffer.from(data.Data, 'hex').toString('utf8')
+    .then( async (response) => {
+      console.log('this happend', response)
+      const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
       const decrypted = await decrypt(resposneToAscii);
       res.send(decrypted);
     })
