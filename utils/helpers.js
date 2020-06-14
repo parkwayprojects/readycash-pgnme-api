@@ -62,10 +62,7 @@ const sanefCtrl = async (req, res) => {
     message: openpgp.message.fromText(JSON.stringify(req.body)),
     publicKeys: (await openpgp.key.readArmored(pubkey)).keys,
   });
-
   const encHexValue = Buffer.from(encrypted, 'utf8').toString('hex')
-
-  console.log(encHexValue)
 
   axios
     .post(
@@ -74,29 +71,16 @@ const sanefCtrl = async (req, res) => {
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
     .then( async (response) => {
-      console.log('this happend', response)
       const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
       const decrypted = await decrypt(resposneToAscii);
       res.send(decrypted);
     })
     .catch((error) => {
-      console.log(error)
       res.send({
         err: error
       });
     });
 };
-
-
-
-/* const testDecrypt = async (req, res) => {
-
-  const cvt = Buffer.from(test, 'hex').toString('utf8')
-  decrypt(cvt);
-  console.log( await decrypt(cvt))
-  res.end()
-} */
-
 
 
 const decrypt = async (encryptedString) => {
