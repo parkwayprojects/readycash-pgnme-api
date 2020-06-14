@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 
 
-app.get('/api/sanef', hashing)
+app.post('/api/sanef', sanefCtrl)
 
 
 app.post('/api/register',registerValidation, catchAsync(register))
