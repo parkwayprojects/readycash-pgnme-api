@@ -56,17 +56,28 @@ const slimObj = (obj) => {
 
 const sanefCtrl = async (req, res) => {
 
+  const route = {
+    account: '/api/v1/accounts/createAccount',
+    wallet: '/api/v1/accounts/createWallet'
+  }
+
+  const { type, ...rest} = req.body
+
+  //console.log(`${process.env.SANEF_URL}${route[type]}`)
+  
+
+
   var pubkey = fs.readFileSync("./0x8DC5CB66-pub.asc", "utf8");
   
   const { data: encrypted } = await openpgp.encrypt({
-    message: openpgp.message.fromText(JSON.stringify(req.body)),
+    message: openpgp.message.fromText(JSON.stringify(rest)),
     publicKeys: (await openpgp.key.readArmored(pubkey)).keys,
   });
   const encHexValue = Buffer.from(encrypted, 'utf8').toString('hex')
 
   axios
     .post(
-      process.env.SANEF_URL,
+      `${process.env.SANEF_URL}${route[type]}`,
       { data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
