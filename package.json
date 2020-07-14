@@ -24,6 +24,7 @@
     "jsonwebtoken": "8.5.1",
     "morgan": "1.10.0",
     "mysql": "2.18.1",
+    "node-rsa": "1.0.8",
     "openpgp": "4.10.4",
     "validatorjs": "3.18.1"
   }

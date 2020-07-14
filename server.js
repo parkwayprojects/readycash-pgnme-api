@@ -9,7 +9,8 @@ const {register, login} = require('./controllers/userController')
 const { registerValidation, loginValidation } = require('./validations/register')
 const { protect } = require('./utils/auth')
 const {catchAsync } = require('./handlers/errorHandler')
-const { sanefCtrl, hashing, decrypt } = require('./utils/helpers')
+const { sanefCtrl } = require('./utils/helpers')
+const { rsaEncrypt } = require('./lib/rsa')
 const errors = require('./handlers/errorHandler')
 require('dotenv').config({ path: 'variables.env'})
 
@@ -27,8 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 
 
-app.post('/api/sanef', sanefCtrl)
 
+app.post('/api/sanef', sanefCtrl)
+app.get('/rsa', rsaEncrypt)
 
 app.post('/api/register',registerValidation, catchAsync(register))
 app.post('/api/login', loginValidation, catchAsync(login))
@@ -42,7 +44,8 @@ app.use('/api/agents', agnetRouter)
 
 app.all('*', errors.notFound)
 
-app.use(errors.productionErrors)
+//app.use(errors.productionErrors)
+app.use(errors.devErrors)
 
 
 const start = () => {

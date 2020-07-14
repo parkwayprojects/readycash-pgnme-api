@@ -67,7 +67,9 @@ const sanefCtrl = async (req, res) => {
   
 
 
-  var pubkey = fs.readFileSync("./0x8DC5CB66-pub.asc", "utf8");
+  //var pubkey = fs.readFileSync("./0x8DC5CB66-pub.asc", "utf8");
+
+  const pubkey = fs.readFileSync("./public-key-live.asc", "utf8");
   
   const { data: encrypted } = await openpgp.encrypt({
     message: openpgp.message.fromText(JSON.stringify(rest)),
