@@ -63,7 +63,7 @@ const sanefCtrl = async (req, res) => {
 
   const { type, ...rest} = req.body
 
-  //console.log(`${process.env.SANEF_URL}${route[type]}`)
+  console.log(`${process.env.SANEF_URL}${route[type]}`)
   
 
 
@@ -84,6 +84,7 @@ const sanefCtrl = async (req, res) => {
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
     .then( async (response) => {
+      console.log(response)
       const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
       const decrypted = await decrypt(resposneToAscii);
       res.send(decrypted);
