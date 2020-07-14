@@ -80,7 +80,7 @@ const sanefCtrl = async (req, res) => {
   axios
     .post(
       `${process.env.SANEF_URL}${route[type]}`,
-      { data: encHexValue },
+      { Data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
     .then( async (response) => {
@@ -90,7 +90,7 @@ const sanefCtrl = async (req, res) => {
       res.send(decrypted);
     })
     .catch((error) => {
-      console.log(error)
+     // console.log(error)
       res.send({
         err: error
       });
