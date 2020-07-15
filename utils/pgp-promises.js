@@ -32,9 +32,12 @@ const getFingerprint = () => {
       //path.join(__dirname, "./0x8DC5CB66-sec.asc"),
       path.join(__dirname, "./private.asc"),
       (err, result, fingerprint) => {
+        console.log(path.join(__dirname, "./private.asc"))
+        console.log(fingerprint)
         if (fingerprint) {
           resolve(fingerprint);
         } else {
+          console.log(err)
           reject(err);
         }
       }
