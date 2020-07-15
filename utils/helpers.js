@@ -3,7 +3,7 @@ const axios = require("axios");
 const path = require("path");
 const openpgp = require("openpgp");
 const fs = require("fs");
-const {getFingerprint, decryptWithFingerprint} = require('./pgp-promises')
+const { getFingerprint, decryptWithFingerprint } = require("./pgp-promises");
 
 const today = () => {
   const today = new Date();
@@ -52,30 +52,25 @@ const slimObj = (obj) => {
   return newObj;
 };
 
-
-
 const sanefCtrl = async (req, res) => {
-
   const route = {
-    account: '/api/v1/accounts/createAccount',
-    wallet: '/api/v1/accounts/createWallet'
-  }
+    account: "/api/v1/accounts/createAccount",
+    wallet: "/api/v1/accounts/createWallet",
+  };
 
-  const { type, ...rest} = req.body
+  const { type, ...rest } = req.body;
 
-  console.log(`${process.env.SANEF_URL}${route[type]}`)
-  
-
+  console.log(`${process.env.SANEF_URL}${route[type]}`);
 
   //var pubkey = fs.readFileSync("./0x8DC5CB66-pub.asc", "utf8");
 
   const pubkey = fs.readFileSync("./public_sanef.asc", "utf8");
-  
+
   const { data: encrypted } = await openpgp.encrypt({
     message: openpgp.message.fromText(JSON.stringify(rest)),
     publicKeys: (await openpgp.key.readArmored(pubkey)).keys,
   });
-  const encHexValue = Buffer.from(encrypted, 'utf8').toString('hex')
+  const encHexValue = Buffer.from(encrypted, "utf8").toString("hex");
 
   axios
     .post(
@@ -83,39 +78,45 @@ const sanefCtrl = async (req, res) => {
       { data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
-    .then( async (response) => {
-      console.log('response block')
+    .then(async (response) => {
+      console.log("response block");
 
-      const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
-      console.log(resposneToAscii)
+      const resposneToAscii = Buffer.from(response.data.Data, "hex").toString(
+        "utf8"
+      );
+      console.log(resposneToAscii);
       try {
         const decrypted = await decrypt(resposneToAscii);
-        console.log(decrypted)
+        console.log(decrypted);
         res.send(decrypted);
-        
       } catch (error) {
-        console.log("decryt err", error)
+        console.log("decryt err", error);
       }
     })
     .catch((error) => {
-      console.log('error block')
+      console.log("error block");
       res.status(422).send({
-        err: error.response.data
+        err: error.response.data,
       });
     });
 };
 
-
 const decrypt = async (encryptedString) => {
-  const fingerprint = await getFingerprint()
-  const decryptedmessage = await decryptWithFingerprint(fingerprint, encryptedString)
-  return decryptedmessage;
-}
-
+  try {
+    const fingerprint = await getFingerprint();
+    const decryptedmessage = await decryptWithFingerprint(
+      fingerprint,
+      encryptedString
+    );
+    return decryptedmessage;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   today,
   merge,
   sanefCtrl,
-  decrypt
+  decrypt,
 };
