@@ -84,14 +84,13 @@ const sanefCtrl = async (req, res) => {
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
     .then( async (response) => {
-      console.log(response)
+      console.log('response block')
       const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
       const decrypted = await decrypt(resposneToAscii);
       res.send(decrypted);
     })
     .catch((error) => {
-     console.log(error.response.data)
-
+      console.log('error block')
       res.status(422).send({
         err: error.response.data
       });
