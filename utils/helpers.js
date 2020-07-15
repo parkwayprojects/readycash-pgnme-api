@@ -90,8 +90,8 @@ const sanefCtrl = async (req, res) => {
       res.send(decrypted);
     })
     .catch((error) => {
-     // console.log(error)
-      res.send({
+     console.log(error)
+      res.status(422).send({
         err: error
       });
     });
