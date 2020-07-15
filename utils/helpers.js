@@ -85,10 +85,16 @@ const sanefCtrl = async (req, res) => {
     )
     .then( async (response) => {
       console.log('response block')
-      
+
       const resposneToAscii = Buffer.from(response.data.Data, 'hex').toString('utf8')
-      const decrypted = await decrypt(resposneToAscii);
-      res.send(decrypted);
+      console.log(resposneToAscii)
+      try {
+        const decrypted = await decrypt(resposneToAscii);
+        res.send(decrypted);
+        
+      } catch (error) {
+        console.log("decryt err", error)
+      }
     })
     .catch((error) => {
       console.log('error block')
