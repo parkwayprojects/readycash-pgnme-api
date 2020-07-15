@@ -80,10 +80,11 @@ const sanefCtrl = async (req, res) => {
     )
     .then(async (response) => {
       console.log("response block");
-
+      console.log(response.data.Data)
       const resposneToAscii = Buffer.from(response.data.Data, "hex").toString("utf8");
         console.log('logger 1')
         const decrypted = await decrypt(resposneToAscii);
+        console.log(decrypted)
         res.send(decrypted);
         console.log('logger 2')
     })
@@ -96,6 +97,7 @@ const sanefCtrl = async (req, res) => {
 };
 
 const decrypt = async (encryptedString) => {
+   console.log('inside decrypt')
   try {
     const fingerprint = await getFingerprint();
     console.log(fingerprint)
