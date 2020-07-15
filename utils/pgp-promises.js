@@ -62,6 +62,7 @@ const decryptWithFingerprint = (fingerprint, encryptedString) => {
       if (decrypted) {
         resolve(decrypted.toString("utf8"));
       } else {
+        console.log('error occurs during decryption')
         reject(err);
       }
     });
