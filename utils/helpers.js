@@ -69,7 +69,7 @@ const sanefCtrl = async (req, res) => {
 
   //var pubkey = fs.readFileSync("./0x8DC5CB66-pub.asc", "utf8");
 
-  const pubkey = fs.readFileSync("./public-key-live.asc", "utf8");
+  const pubkey = fs.readFileSync("./public_sanef.asc", "utf8");
   
   const { data: encrypted } = await openpgp.encrypt({
     message: openpgp.message.fromText(JSON.stringify(rest)),
@@ -80,7 +80,7 @@ const sanefCtrl = async (req, res) => {
   axios
     .post(
       `${process.env.SANEF_URL}${route[type]}`,
-      { Data: encHexValue },
+      { data: encHexValue },
       { headers: { ClientID: process.env.SANEF_ClientID } }
     )
     .then( async (response) => {

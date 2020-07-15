@@ -30,7 +30,7 @@ const getFingerprint = () => {
   return new Promise((resolve, reject) => {
     gpg.importKeyFromFile(
       //path.join(__dirname, "./0x8DC5CB66-sec.asc"),
-      path.join(__dirname, "./0x8D157B5F-sec.asc"),
+      path.join(__dirname, "./private.asc"),
       (err, result, fingerprint) => {
         if (fingerprint) {
           resolve(fingerprint);
