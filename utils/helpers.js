@@ -92,7 +92,7 @@ const sanefCtrl = async (req, res) => {
     .catch((error) => {
      console.log(error)
       res.status(422).send({
-        err: error
+        err: error.data
       });
     });
 };
