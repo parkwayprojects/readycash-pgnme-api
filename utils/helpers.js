@@ -90,6 +90,7 @@ const sanefCtrl = async (req, res) => {
       console.log(resposneToAscii)
       try {
         const decrypted = await decrypt(resposneToAscii);
+        console.log(decrypted)
         res.send(decrypted);
         
       } catch (error) {
