@@ -84,7 +84,6 @@ const sanefCtrl = async (req, res) => {
       const resposneToAscii = Buffer.from(response.data.Data, "hex").toString(
         "utf8"
       );
-      console.log(resposneToAscii);
       try {
         const decrypted = await decrypt(resposneToAscii);
         console.log(decrypted);
@@ -104,6 +103,7 @@ const sanefCtrl = async (req, res) => {
 const decrypt = async (encryptedString) => {
   try {
     const fingerprint = await getFingerprint();
+    console.log(fingerprint)
     const decryptedmessage = await decryptWithFingerprint(
       fingerprint,
       encryptedString
