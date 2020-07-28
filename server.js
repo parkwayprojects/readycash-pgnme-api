@@ -44,8 +44,8 @@ app.use('/api/agents', agnetRouter)
 
 app.all('*', errors.notFound)
 
-//app.use(errors.productionErrors)
-app.use(errors.devErrors)
+app.use(errors.productionErrors)
+//app.use(errors.devErrors)
 
 
 const start = () => {
