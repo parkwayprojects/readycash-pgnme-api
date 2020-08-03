@@ -6,8 +6,16 @@ const {accountTransactionListQuery, incomeAccountQuery, defaultAccountTransactio
 
 
 const fromInseption = async (req, res) => {
+  const { size, count } = req.query
+  console.log(size, count)
+
+  if (!size || !count) {
+    res.status(422).json({message: 'Please pass limit and size'});
+    return res.end();
+  }
+
   const { mainAccId, incomeAccId } = req.params
-  const mainTransPromise =  query(accountTransactionListQuery(mainAccId))
+  const mainTransPromise =  query(accountTransactionListQuery(mainAccId, size, count))
   const incomeListPromise =  query(incomeAccountQuery(incomeAccId))
   const [mainTranList, incomeList] = await Promise.all([mainTransPromise, incomeListPromise])
   res.send(merge(mainTranList,incomeList));
