@@ -7,7 +7,6 @@ const {accountTransactionListQuery, incomeAccountQuery, defaultAccountTransactio
 
 const fromInseption = async (req, res) => {
   const { size, count } = req.query
-  console.log(size, count)
 
   if (!size || !count) {
     res.status(422).json({message: 'Please pass limit and size'});

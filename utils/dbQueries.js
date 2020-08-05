@@ -9,7 +9,7 @@ function incomeAccountIdQuery(agentId) {
   return `select account from agent a INNER JOIN agent_accounts aa on a.id = aa.id INNER JOIN acct on aa.account = acct.id where realId in (${agentId})and aa.type ='01.566'`
 }
 
-function accountTransactionListQuery(accountId, size, count) {
+function accountTransactionListQuery(accountId, size=100, count=0) {
   return `select tl.sender as AGENT_CODE,tl.transmissionDate as TRANSMISSION_DATE,
   case tl.itc when '200.21.0000' then 'AGENT_WALLET_FUNDING' 
   when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
