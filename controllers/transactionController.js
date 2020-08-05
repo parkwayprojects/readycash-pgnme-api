@@ -9,7 +9,7 @@ const fromInseption = async (req, res) => {
   const { size, count } = req.query
 
   if (!size || !count) {
-    res.status(422).json({message: 'Please pass limit and size'});
+    res.status(422).json({message: 'Please pass size and count'});
     return res.end();
   }
 
