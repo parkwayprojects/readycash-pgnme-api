@@ -21,7 +21,7 @@ function accountTransactionListQuery(accountId, size=100, count=0) {
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
 when '200.21.0001' then tl.narration
-when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
+when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
@@ -43,7 +43,7 @@ function defaultAccountTransactionListQuery(accountId, sign, date) {
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
 when '200.21.0001' then tl.narration
-when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
+when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
@@ -65,7 +65,7 @@ function incomeAccountQuery(incomeAccountId) {
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
 when '200.21.0001' then tl.narration
-when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
+when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
@@ -87,7 +87,7 @@ function defaultTncomeAccountQuery(incomeAccountId, sign, date) {
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
 when '200.21.0001' then tl.narration
-when '220.00.010.0000' then Concat('Bank transfer:',' ',ca_name)
+when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
 when '220.00.012.0000' then tl.narration
 when '220.00.013.0000' then IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
