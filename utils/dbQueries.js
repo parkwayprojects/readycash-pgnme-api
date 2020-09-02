@@ -20,9 +20,9 @@ function accountTransactionListQuery(accountId, size=100, count=0) {
   when '200.00.000' then  'BILLS_PAYMENT' end as SERVICE_TYPE,
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
-when '200.21.0001' then tl.narration
+when '200.21.0001' then IF(tl.narration,tl.narration,'null')
 when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
-when '220.00.012.0000' then tl.narration
+when '220.00.012.0000' then IF(tl.narration,tl.narration,'null')
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
   case te.subclass when 'C' then 'CREDIT'
@@ -42,9 +42,9 @@ function defaultAccountTransactionListQuery(accountId, sign, date) {
   when '200.00.000' then  'BILLS_PAYMENT' end as SERVICE_TYPE,
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
-when '200.21.0001' then tl.narration
+when '200.21.0001' then IF(tl.narration,tl.narration,'null')
 when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
-when '220.00.012.0000' then tl.narration
+when '220.00.012.0000' then IF(tl.narration,tl.narration,'null')
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
   case te.subclass when 'C' then 'CREDIT'
@@ -64,9 +64,9 @@ function incomeAccountQuery(incomeAccountId) {
   when '200.00.000' then  'BILLS_PAYMENT' end as SERVICE_TYPE,
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
-when '200.21.0001' then tl.narration
+when '200.21.0001' then IF(tl.narration,tl.narration,'null')
 when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
-when '220.00.012.0000' then tl.narration
+when '220.00.012.0000' then IF(tl.narration,tl.narration,'null')
 when '220.00.013.0000' then  IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
   case te.subclass when 'C' then 'CREDIT'
@@ -86,9 +86,9 @@ function defaultTncomeAccountQuery(incomeAccountId, sign, date) {
   when '200.00.000' then  'BILLS_PAYMENT' end as SERVICE_TYPE,
 case tl.itc when '200.21.0000' then 'fund_wallet_transaction' 
 when '220.00.4000' then 'CASHOUT_WITH_VOUCHER' 
-when '200.21.0001' then tl.narration
+when '200.21.0001' then IF(tl.narration,tl.narration,'null')
 when '220.00.010.0000' then IF(Concat('Bank transfer:',' ',ca_name),Concat('Bank transfer:',' ',ca_name),'null')
-when '220.00.012.0000' then tl.narration
+when '220.00.012.0000' then IF(tl.narration,tl.narration,'null')
 when '220.00.013.0000' then IF(ca_phone,Concat('Airtime transfer to',' ',ca_phone),'N/A')
 when '200.00.000' then  tl.narration end as description,
   case te.subclass when 'C' then 'CREDIT'
