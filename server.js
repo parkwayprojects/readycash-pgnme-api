@@ -11,7 +11,8 @@ const { protect } = require('./utils/auth')
 const {catchAsync } = require('./handlers/errorHandler')
 const { sanefCtrl } = require('./utils/helpers')
 const { rsaEncrypt } = require('./lib/rsa')
-const errors = require('./handlers/errorHandler')
+const errors = require('./handlers/errorHandler');
+const { gtbBvnController } = require('./utils/rsa-encrypt');
 require('dotenv').config({ path: 'variables.env'})
 
 
@@ -30,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 
 app.post('/api/sanef', sanefCtrl)
-app.get('/rsa', rsaEncrypt)
+app.post('/api/gtb/bvn-enquiry',catchAsync(gtbBvnController))
 
 app.post('/api/register',registerValidation, catchAsync(register))
 app.post('/api/login', loginValidation, catchAsync(login))
