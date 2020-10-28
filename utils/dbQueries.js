@@ -113,6 +113,10 @@ function findUserById(id) {
   return `SELECT * FROM users WHERE id='${id}'`
 }
 
+function agentInfoWithPhoneQuery(phoneNumber) {
+  return `select fullName,businessname,realId,email,addressState as state,addressCoordiates as 'geo_location',address from agent where phoneNumber in (${phoneNumber})`
+}
+
 
 module.exports = {
   accountIdQuery,
@@ -124,6 +128,7 @@ module.exports = {
   agentInfoQuery,
   registerUser,
   loginUser,
-  findUserById
+  findUserById,
+  agentInfoWithPhoneQuery
 
 }
